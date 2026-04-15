@@ -1,0 +1,53 @@
+---
+description: Normas del proyecto Clickvision (Next.js, TypeScript, Tailwind, Firebase)
+alwaysApply: true
+---
+
+# Normas del proyecto Clickvision
+
+## Stack y TypeScript
+
+- Usar **TypeScript estricto** (`strict: true` en `tsconfig`). No relajar reglas salvo decisión explícita del equipo.
+- Evitar `any`; preferir tipos explícitos en `src/types/` o `src/features/<dominio>/types/`.
+
+## Arquitectura y tamaño de archivos
+
+- **No crear archivos gigantes**: si un archivo crece mucho, dividir por responsabilidad (UI vs hooks vs servicio vs tipos).
+- **Separar capas**:
+  - **UI**: `src/components/ui/`, `src/components/layout/`, `src/features/<x>/components/` (solo presentación y eventos locales).
+  - **Lógica**: `src/features/<x>/hooks/`, `src/hooks/` (estado, efectos, orquestación).
+  - **Servicios**: `src/services/firebase/`, `src/features/<x>/services/` (Auth, Firestore, Storage, APIs; sin JSX).
+  - **Tipos**: `src/types/`, `src/features/<x>/types/`.
+- **Páginas delgadas** (`app/.../page.tsx`): componer layouts y contenedores; evitar lógica pesada en la ruta.
+
+## Componentes y alcance de cambios
+
+- Preferir **componentes pequeños y reutilizables**; extraer cuando haya duplicación clara o responsabilidades mezcladas.
+- **No modificar archivos no relacionados** con la tarea actual. Diff mínimo y enfocado.
+- Antes de un **refactor** amplio: explicar en breve **alcance, riesgos e impacto** (rutas, datos, tests); no refactorizar “de paso” sin necesidad.
+
+## Naming y calidad
+
+- Mantener **naming consistente**: componentes `PascalCase`, hooks `useThing`, handlers `handleEvent`, servicios `*.service.ts`, tipos `*.types.ts`.
+- **Rendimiento móvil**: priorizar LCP y JS en cliente (imágenes con `next/image` y `sizes`, lazy donde tenga sentido, evitar hidratar bloques innecesarios).
+- **Dependencias**: no añadir paquetes sin necesidad clara; preferir APIs nativas o utilidades ya presentes.
+
+## Tareas grandes
+
+- Si la tarea es **grande**, **dividirla en subtareas** numeradas o por fases; completar una parte estable antes de la siguiente.
+
+## Validación tras cambios
+
+Al finalizar cambios sustanciales, **indicar siempre** los comandos para validar (y ejecutarlos en el entorno cuando sea posible):
+
+```bash
+npm run dev
+npm run build
+npm run lint
+```
+
+- Tras tocar tipos o rutas críticas, recomendar **`npm run build`** como comprobación obligatoria antes de dar por cerrada la tarea.
+
+## Virtual try-on
+
+- La carpeta `src/features/virtual-try-on/` está reservada: **no implementar** try-on hasta fase explícita; no acoplar la UI del catálogo a SDKs de cámara sin acuerdo.
