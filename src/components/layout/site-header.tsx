@@ -16,7 +16,7 @@ export const SiteHeader = () => {
           className="flex shrink-0 items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             alt="ClickVision"
             width={724}
             height={165}
