@@ -16,6 +16,10 @@ type HomeProductRailProps = {
   products: Product[];
   /** Solo en el primer carrusel de la home para LCP. */
   prioritizeFirstImage?: boolean;
+  /** Estilo del título (p. ej. serif para bloque Novedades). */
+  titleClassName?: string;
+  /** CTA opcional a la derecha del título (p. ej. enlace al catálogo). */
+  cta?: { href: string; label: string };
 };
 
 const scrollStepPx = 320;
@@ -26,6 +30,8 @@ export const HomeProductRail = ({
   description,
   products,
   prioritizeFirstImage = false,
+  titleClassName,
+  cta,
 }: HomeProductRailProps) => {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -58,15 +64,29 @@ export const HomeProductRail = ({
     <section aria-labelledby={headingId} className="scroll-mt-24">
       <div className="mx-auto w-full max-w-full px-4 sm:px-6 lg:px-10">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6 lg:max-w-7xl">
-          <div className="max-w-2xl space-y-1">
-            <h2 id={headingId} className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+          <div className="max-w-2xl space-y-2">
+            <h2
+              id={headingId}
+              className={cn(
+                "text-2xl font-semibold tracking-tight text-ink sm:text-3xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h2>
             {description ? (
               <p className="text-sm leading-relaxed text-muted sm:text-base">{description}</p>
             ) : null}
           </div>
-          <div className="flex shrink-0 gap-2 self-start sm:self-auto">
+          <div className="flex shrink-0 flex-wrap items-center gap-3 self-start sm:self-auto">
+            {cta ? (
+              <Link
+                href={cta.href}
+                className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-5 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              >
+                {cta.label}
+              </Link>
+            ) : null}
             <button
               type="button"
               onClick={handleScrollPrev}
@@ -114,7 +134,7 @@ export const HomeProductRail = ({
             className="w-[min(17.5rem,calc(100vw-2.5rem))] shrink-0 snap-start sm:w-[18.5rem]"
             aria-label={`${index + 1} de ${products.length}`}
           >
-            <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-surface shadow-sm transition-[box-shadow,border-color] duration-200 hover:border-border hover:shadow-soft">
+            <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-secondary-bg shadow-sm transition-[box-shadow,border-color] duration-200 hover:border-border hover:shadow-soft">
               <Link
                 href={routes.product(product.slug)}
                 className="block min-h-0 outline-none ring-offset-2 ring-offset-surface focus-visible:ring-2 focus-visible:ring-ring/35"
