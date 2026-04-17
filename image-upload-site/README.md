@@ -14,6 +14,14 @@ npm run dev
 
 Abre `http://localhost:3001`.
 
+### Uso rápido
+
+1. Inicia sesión (mismo correo que en `NEXT_PUBLIC_ADMIN_EMAILS`).
+2. Pega la **URL de la ficha** en la tienda (con `/gafas/…`) o solo el **slug** → **Buscar montura**.
+3. **Arrastra** las fotos a la zona grande o haz clic en **Elegir archivos**.
+
+Opcional: despliega **«Lista de todos los productos»** si prefieres elegir por slug desde la tabla.
+
 ## Vercel (segundo proyecto)
 
 1. New Project → importa el mismo repo **Clickvision**.
