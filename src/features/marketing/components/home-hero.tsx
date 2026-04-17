@@ -42,18 +42,14 @@ export const HomeHero = () => {
         />
         <Container className="relative z-10 flex min-h-88 max-w-full flex-col justify-center py-12 sm:min-h-104 sm:py-16 lg:min-h-128 lg:py-20">
           <div className="max-w-2xl space-y-5 sm:space-y-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
-              Óptica en línea
-            </p>
             <h1
               id="home-hero-heading"
               className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-tight"
             >
-              Gafas con lentes formulados, con la claridad que mereces
+              Compra gafas sin complicaciones.
             </h1>
             <p className="text-pretty text-base leading-relaxed text-white/90 sm:text-lg">
-              Monturas curadas, precios visibles y un flujo pensado para móvil. Explora el
-              catálogo y configura lentes cuando estés listo.
+              Elige tu montura, elige tus lentes y recíbelas con total confianza.
             </p>
             <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <Link href={routes.catalog} className={primaryCtaClass}>
