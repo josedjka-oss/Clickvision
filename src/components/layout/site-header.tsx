@@ -18,11 +18,11 @@ export const SiteHeader = () => {
           <Image
             src="/logo.svg"
             alt="ClickVision"
-            width={240}
-            height={64}
-            className="h-7 w-auto md:h-9"
+            width={360}
+            height={96}
+            className="h-[2.625rem] w-auto md:h-[3.375rem]"
             priority
-            sizes="(max-width: 768px) 160px, 200px"
+            sizes="(max-width: 768px) 240px, 300px"
           />
         </Link>
         <nav aria-label="Navegación principal">
