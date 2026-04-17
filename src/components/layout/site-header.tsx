@@ -1,9 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { AccountNavLink } from "@/components/layout/account-nav-link";
 import { CartNavLink } from "@/components/layout/cart-nav-link";
 import { Container } from "@/components/ui/container";
 import { mainNavItems } from "@/config/navigation";
-import { siteConfig } from "@/config/site";
 import { routes } from "@/lib/routes";
 
 export const SiteHeader = () => {
@@ -12,9 +12,18 @@ export const SiteHeader = () => {
       <Container className="flex h-14 items-center justify-between gap-4 sm:h-16">
         <Link
           href="/"
-          className="text-base font-semibold tracking-tight text-ink focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:text-lg"
+          aria-label="Ir al inicio de ClickVision"
+          className="flex shrink-0 items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
-          {siteConfig.name}
+          <Image
+            src="/logo.svg"
+            alt="ClickVision"
+            width={240}
+            height={64}
+            className="h-7 w-auto md:h-9"
+            priority
+            sizes="(max-width: 768px) 160px, 200px"
+          />
         </Link>
         <nav aria-label="Navegación principal">
           <ul className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
