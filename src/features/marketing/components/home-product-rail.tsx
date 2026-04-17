@@ -6,6 +6,8 @@ import type { Product } from "@/features/catalog/types/product.types";
 import { ProductVisual } from "@/features/catalog/components/product-visual";
 import { formatMoney } from "@/lib/format-money";
 import { routes } from "@/lib/routes";
+
+const imageUploadSiteUrl = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SITE_URL?.trim() ?? "";
 import { cn } from "@/lib/cn";
 import { getButtonClasses } from "@/components/ui/button";
 
@@ -137,12 +139,20 @@ export const HomeProductRail = ({
           <div className="mx-auto w-full max-w-2xl rounded-2xl border border-dashed border-border bg-secondary-bg px-6 py-10 text-center sm:px-8 sm:py-12">
             <p className="text-sm leading-relaxed text-muted sm:text-base">{emptyMessage}</p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Link
-                href={routes.adminProducts}
-                className={getButtonClasses({ variant: "primary", size: "sm", className: "justify-center no-underline" })}
-              >
-                Ir a productos (admin)
-              </Link>
+              {imageUploadSiteUrl ? (
+                <a
+                  href={imageUploadSiteUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={getButtonClasses({
+                    variant: "primary",
+                    size: "sm",
+                    className: "justify-center no-underline",
+                  })}
+                >
+                  Portal de imágenes
+                </a>
+              ) : null}
               <Link
                 href={routes.catalog}
                 className={getButtonClasses({ variant: "secondary", size: "sm", className: "justify-center no-underline" })}

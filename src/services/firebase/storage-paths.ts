@@ -5,6 +5,6 @@
 export const storagePathBuilders = {
   prescriptionUpload: (userId: string, fileId: string) =>
     `prescriptions/${userId}/${fileId}`,
-  /** Imágenes de producto (panel admin). Reglas de Storage deben limitar quién puede escribir. */
+  /** Imágenes de producto (admin local o portal `image-upload-site`). Reglas de Storage deben limitar escritura. */
   productImage: (productId: string, fileId: string) => `products/${productId}/images/${fileId}`,
 } as const;

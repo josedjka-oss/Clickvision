@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+image-upload-site/node_modules
+image-upload-site/.next
 /.pnp
 .pnp.*
 .yarn/*
