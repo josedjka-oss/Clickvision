@@ -13,7 +13,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   outline:
     "border-2 border-ink/15 bg-surface text-ink hover:border-ink/25 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
   ghost:
-    "bg-transparent text-muted hover:bg-black/[0.04] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+    "bg-transparent text-muted hover:bg-ink/5 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
 };
 
 /** Mobile-first: alturas táctiles ≥ 44px en md/lg. */

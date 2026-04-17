@@ -1,38 +1,51 @@
 @import "tailwindcss";
 
 /*
-  Clickvision — sistema de diseño (e-commerce gafas, estilo limpio tipo Warby / Zenni).
-  Tokens en :root; utilidades Tailwind v4 en @theme inline.
+  Clickvision — paleta minimalista (fondo blanco, CTA oscuro).
+  Valores canónicos en :root; utilidades en @theme inline.
 */
 :root {
+  /* Marca / CTA (primary) */
+  --cv-primary: #1b2c4d;
+  --cv-accent: #1b2c4d;
+  --cv-accent-hover: #152a47;
+  --cv-on-accent: #ffffff;
+  --cv-accent-soft: color-mix(in srgb, var(--cv-primary) 7%, white);
+  --cv-ring: #1b2c4d;
+
   /* Fondos */
-  --cv-canvas: #f7f8fa;
+  --cv-background: #ffffff;
+  --cv-canvas: #ffffff;
   --cv-surface: #ffffff;
-  --cv-surface-muted: #f0f2f5;
+  --cv-secondary-bg: #f5f5f5;
+  --cv-surface-muted: #f5f5f5;
 
   /* Texto */
-  --cv-ink: #111827;
-  --cv-muted: #4b5563;
+  --cv-black: #111111;
+  --cv-ink: #111111;
+  --cv-text-secondary: #6b7280;
+  --cv-muted: #6b7280;
   --cv-subtle: #9ca3af;
 
   /* Bordes */
   --cv-border: #e5e7eb;
 
-  /* Principal (CTA) — azul muy oscuro, alto contraste */
-  --cv-accent: #1a2f4a;
-  --cv-accent-hover: #132438;
-  --cv-on-accent: #ffffff;
-  --cv-accent-soft: #eef2f7;
-  --cv-ring: #1a2f4a;
-
   /* Estados */
-  --cv-success: #047857;
-  --cv-success-soft: #ecfdf5;
-  --cv-destructive: #b91c1c;
+  --cv-success: #16a34a;
+  --cv-success-soft: #f0fdf4;
+  --cv-error: #dc2626;
+  --cv-destructive: #dc2626;
   --cv-destructive-soft: #fef2f2;
 }
 
 @theme inline {
+  /* Aliases con nombres de marca (además de accent / ink usados en componentes) */
+  --color-primary: var(--cv-primary);
+  --color-black: var(--cv-black);
+  --color-background: var(--cv-background);
+  --color-secondary-bg: var(--cv-secondary-bg);
+  --color-error: var(--cv-error);
+
   --color-canvas: var(--cv-canvas);
   --color-surface: var(--cv-surface);
   --color-surface-muted: var(--cv-surface-muted);
@@ -71,7 +84,7 @@
   }
 
   body {
-    background: var(--cv-canvas);
+    background: var(--cv-background);
     color: var(--cv-ink);
     font-feature-settings: "kern" 1, "liga" 1;
     text-rendering: geometricPrecision;
@@ -104,7 +117,7 @@
   p {
     font-size: 1rem;
     line-height: 1.6;
-    color: var(--cv-muted);
+    color: var(--cv-text-secondary);
   }
 
   label {

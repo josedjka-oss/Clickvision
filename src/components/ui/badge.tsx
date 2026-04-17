@@ -13,7 +13,7 @@ const variantClasses: Record<BadgeVariant, string> = {
   outline: "border border-border/80 bg-surface text-muted",
   new: "border border-success/20 bg-success-soft text-success",
   sale: "border border-destructive/20 bg-destructive-soft text-destructive",
-  bestseller: "border border-amber-200/90 bg-amber-50/90 text-amber-950",
+  bestseller: "border border-border bg-secondary-bg text-ink",
 };
 
 const sizeClasses: Record<BadgeSize, string> = {
