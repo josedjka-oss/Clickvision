@@ -20,7 +20,7 @@ export const SiteHeader = () => {
             alt="ClickVision"
             width={360}
             height={96}
-            className="h-[2.625rem] w-auto md:h-[3.375rem]"
+            className="h-10.5 w-auto md:h-13.5"
             priority
             sizes="(max-width: 768px) 240px, 300px"
           />
