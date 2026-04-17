@@ -1,66 +1,43 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { getButtonClasses } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Container } from "@/components/ui/container";
+import { HomeCategoryTiles } from "@/features/marketing/components/home-category-tiles";
+import { HomeHero } from "@/features/marketing/components/home-hero";
+import { HomeProductRail } from "@/features/marketing/components/home-product-rail";
+import { HomeTrustStrip } from "@/features/marketing/components/home-trust-strip";
+import { HomeValueProps } from "@/features/marketing/components/home-value-props";
+import { pickHomeDestacados, pickHomeNovedades } from "@/features/marketing/lib/home-products";
+import { listPublishedProducts } from "@/features/catalog/services/catalog-products.service";
 import { siteConfig } from "@/config/site";
-import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
   title: "Inicio",
   description: siteConfig.description,
 };
 
-const HomePage = () => {
-  return (
-    <Container className="flex flex-1 flex-col gap-12 py-12 sm:gap-16 sm:py-16 lg:py-20">
-      <section className="space-y-6 sm:space-y-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-subtle">
-          Óptica en línea
-        </p>
-        <div className="space-y-4 sm:max-w-2xl sm:space-y-5">
-          <h1 className="text-balance text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-[2.5rem] lg:leading-tight">
-            Gafas con lentes formulados, con la claridad que mereces
-          </h1>
-          <p className="text-pretty text-base leading-relaxed text-muted sm:text-lg">
-            Monturas curadas, ficha técnica clara y un flujo de compra que iremos
-            activando por fases. Explora el catálogo demo y revisa el carrito de
-            ejemplo.
-          </p>
-        </div>
-        <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-          <Badge variant="accent" size="md">
-            Demo con datos mock
-          </Badge>
-          <Link
-            href={routes.catalog}
-            className={getButtonClasses({ variant: "primary", size: "lg" })}
-          >
-            Ver monturas
-          </Link>
-          <Link
-            href={routes.help}
-            className={getButtonClasses({ variant: "ghost", size: "lg" })}
-          >
-            Ayuda
-          </Link>
-        </div>
-      </section>
+const HomePage = async () => {
+  const products = await listPublishedProducts();
+  const novedades = pickHomeNovedades(products);
+  const destacados = pickHomeDestacados(products);
 
-      <Card
-        id="base-diseno"
-        className="max-w-xl scroll-mt-28 border-dashed border-border/80 bg-surface/80 shadow-soft"
-      >
-        <CardHeader>
-          <CardTitle>Próximos pasos</CardTitle>
-          <CardDescription>
-            Integración de recetas, checkout real y cuenta de usuario. Por ahora
-            todo es estático y sirve para validar diseño, rutas y jerarquía visual.
-          </CardDescription>
-        </CardHeader>
-      </Card>
-    </Container>
+  return (
+    <div className="flex flex-1 flex-col gap-14 pb-16 pt-0 sm:gap-16 sm:pb-20 lg:gap-20 lg:pb-24">
+      <HomeHero />
+      <HomeTrustStrip />
+      <HomeCategoryTiles />
+      <HomeValueProps />
+      <HomeProductRail
+        id="home-novedades"
+        title="Novedades"
+        description="Monturas recién incorporadas o destacadas en campaña."
+        products={novedades}
+        prioritizeFirstImage
+      />
+      <HomeProductRail
+        id="home-destacados"
+        title="Selección destacada"
+        description="Ordenadas por relevancia en catálogo (puntuación interna)."
+        products={destacados}
+      />
+    </div>
   );
 };
 

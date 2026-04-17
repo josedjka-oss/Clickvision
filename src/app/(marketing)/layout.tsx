@@ -1,3 +1,4 @@
+import { SiteAnnouncementBar } from "@/components/layout/site-announcement-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 
@@ -14,6 +15,7 @@ const MarketingLayout = ({ children }: MarketingLayoutProps) => {
       >
         Saltar al contenido
       </a>
+      <SiteAnnouncementBar />
       <SiteHeader />
       <main
         id="contenido-principal"
