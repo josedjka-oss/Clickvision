@@ -20,6 +20,8 @@ type HomeProductRailProps = {
   titleClassName?: string;
   /** CTA opcional a la derecha del título (p. ej. enlace al catálogo). */
   cta?: { href: string; label: string };
+  /** Mensaje si no hay productos (p. ej. catálogo Firestore vacío en producción). */
+  emptyMessage?: string;
 };
 
 const scrollStepPx = 320;
@@ -32,8 +34,10 @@ export const HomeProductRail = ({
   prioritizeFirstImage = false,
   titleClassName,
   cta,
+  emptyMessage = "Aún no hay monturas publicadas en el catálogo. Crea productos en Admin o revisa que en Firestore tengan el estado publicado.",
 }: HomeProductRailProps) => {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const hasProducts = products.length > 0;
 
   const handleScrollPrev = () => {
     scrollerRef.current?.scrollBy({ left: -scrollStepPx, behavior: "smooth" });
@@ -53,10 +57,6 @@ export const HomeProductRail = ({
       handleScrollNext();
     }
   };
-
-  if (products.length === 0) {
-    return null;
-  }
 
   const headingId = `${id}-heading`;
 
@@ -87,30 +87,34 @@ export const HomeProductRail = ({
                 {cta.label}
               </Link>
             ) : null}
-            <button
-              type="button"
-              onClick={handleScrollPrev}
-              className={cn(
-                "inline-flex size-11 items-center justify-center rounded-xl border border-border bg-surface text-ink shadow-sm transition-colors",
-                "hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              )}
-              aria-label={`Anterior: ${title}`}
-            >
-              <span className="sr-only">Anterior</span>
-              <Chevron direction="left" />
-            </button>
-            <button
-              type="button"
-              onClick={handleScrollNext}
-              className={cn(
-                "inline-flex size-11 items-center justify-center rounded-xl border border-border bg-surface text-ink shadow-sm transition-colors",
-                "hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              )}
-              aria-label={`Siguiente: ${title}`}
-            >
-              <span className="sr-only">Siguiente</span>
-              <Chevron direction="right" />
-            </button>
+            {hasProducts ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleScrollPrev}
+                  className={cn(
+                    "inline-flex size-11 items-center justify-center rounded-xl border border-border bg-surface text-ink shadow-sm transition-colors",
+                    "hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                  )}
+                  aria-label={`Anterior: ${title}`}
+                >
+                  <span className="sr-only">Anterior</span>
+                  <Chevron direction="left" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleScrollNext}
+                  className={cn(
+                    "inline-flex size-11 items-center justify-center rounded-xl border border-border bg-surface text-ink shadow-sm transition-colors",
+                    "hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                  )}
+                  aria-label={`Siguiente: ${title}`}
+                >
+                  <span className="sr-only">Siguiente</span>
+                  <Chevron direction="right" />
+                </button>
+              </>
+            ) : null}
           </div>
         </div>
       </div>
@@ -118,16 +122,36 @@ export const HomeProductRail = ({
       <div
         ref={scrollerRef}
         role="region"
-        aria-roledescription="carrusel"
+        aria-roledescription={hasProducts ? "carrusel" : undefined}
         aria-label={title}
-        tabIndex={0}
-        onKeyDown={handleRailKeyDown}
+        tabIndex={hasProducts ? 0 : -1}
+        onKeyDown={hasProducts ? handleRailKeyDown : undefined}
         className={cn(
           "mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 pl-4 pr-4 pt-0.5 [-ms-overflow-style:none] [scrollbar-width:none]",
           "sm:mt-8 sm:gap-5 sm:pl-6 sm:pr-6 lg:pl-10 lg:pr-10",
           "[&::-webkit-scrollbar]:hidden",
+          !hasProducts && "justify-center",
         )}
       >
+        {!hasProducts ? (
+          <div className="mx-auto w-full max-w-2xl rounded-2xl border border-dashed border-border bg-secondary-bg px-6 py-10 text-center sm:px-8 sm:py-12">
+            <p className="text-sm leading-relaxed text-muted sm:text-base">{emptyMessage}</p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <Link
+                href={routes.adminProducts}
+                className={getButtonClasses({ variant: "primary", size: "sm", className: "justify-center no-underline" })}
+              >
+                Ir a productos (admin)
+              </Link>
+              <Link
+                href={routes.catalog}
+                className={getButtonClasses({ variant: "secondary", size: "sm", className: "justify-center no-underline" })}
+              >
+                Ver catálogo
+              </Link>
+            </div>
+          </div>
+        ) : null}
         {products.map((product, index) => (
           <article
             key={product.id}
